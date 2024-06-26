@@ -3,6 +3,7 @@ import React from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
 import LandingPage from './components/LandingPage';
+import AboutUs from './components/AboutUs';
 
 
 const App = () => {
@@ -10,7 +11,8 @@ const App = () => {
     <Login />,
     <Register />,
     <LandingPage />,
-    <ShoppingCart/>
+    <ShoppingCart/>,
+    <AboutUs/>
 
 
 

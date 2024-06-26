@@ -11,6 +11,7 @@ import { Layout } from './components/Layout.jsx'
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import ShoppingCart from './components/ShoppingCart.jsx';
+import AboutUs from './components/AboutUs.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <LandingPage />,
+        element: <AboutUs />,
       },
+      {
+        path: "shop",
+        element: <ShoppingCart />,
+
+      },
+      {
+        path: "us",
+        element: <AboutUs />,
+      },
+      {
+        path: "products",
+        element: <LandingPage />,
+      }
     ],
   },
   {
@@ -31,11 +45,8 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
-  },
-  {
-    path: "shop",
-    element: <ShoppingCart />,
-  },
+  }
+
 ]);
 
 

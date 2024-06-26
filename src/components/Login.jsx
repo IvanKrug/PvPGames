@@ -9,7 +9,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Aquí puedes manejar el inicio de sesión
+        
         console.log('Email:', email);
         console.log('Password:', password);
     };

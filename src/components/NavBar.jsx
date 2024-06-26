@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './../assets/logo.png'; 
+import logo from './../assets/logo.png';
 import { HiOutlineShoppingCart } from "react-icons/hi";
 
 const NavBar = () => {
@@ -11,9 +11,11 @@ const NavBar = () => {
                     <img src={logo} alt="Logo" className="w-16 h-16 rounded" />
                 </Link>
                 <ul className="flex space-x-4">
-                    <li><a href="#" className="text-white hover:text-gray-400">Menu</a></li>
-                    <li><a href="#" className="text-white hover:text-gray-400">Productos</a></li>
+                    <li><Link to="/Us" className="text-white hover:text-gray-400">Nosotros</Link></li>
+                    <li><a href="/products" className="text-white hover:text-gray-400">Productos</a></li>
                     <li><Link to="/shop" className="text-white hover:text-gray-400">Carrito</Link></li>
+
+
                 </ul>
                 <div className="flex items-center space-x-4">
                     <Link to="/login">
@@ -21,7 +23,10 @@ const NavBar = () => {
                             Iniciar Sesión
                         </button>
                     </Link>
+                    <Link to="/shop">
                     <HiOutlineShoppingCart color='white' size={24} />
+                    </Link>
+                    
                 </div>
             </nav>
         </header>
