@@ -5,7 +5,7 @@ const LandingPage = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-       
+
         const response = axios.get('https://fakestoreapi.com/products')
             .then(response => {
                 setItems(response.data);

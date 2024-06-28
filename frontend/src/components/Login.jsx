@@ -9,10 +9,34 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         console.log('Email:', email);
         console.log('Password:', password);
     };
+
+    const numeros = [1, 2, 3, 4, 5]
+
+    const nombres = ["Carlos", "Ivan", "Alban"]
+
+    const juegos = [{
+        name: 'MH WORLD',
+        price: '19,99',
+        color: 'red',
+    },
+    {
+        name: 'MH WORLD',
+        price: '19,99'
+    },
+    {
+        name: 'MH WORLD',
+        price: '19,99'
+    }]
+
+    const newJuegos = {
+
+    }
+
+    const array = []
 
     return (
         <div className="flex  items-center justify-center min-h-screen bg-[url('./assets/background.jpg')] bg-cover bg-center">
