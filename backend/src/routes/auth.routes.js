@@ -3,12 +3,12 @@ import { login, register, logout, profile } from '../controllers/auth.controller
 import {autRequierd} from '../middlewares/validateToken.js'
 const router = Router()
 
-router.post('/register', register);
+router.post('/api/register', register);
 
-router.post('/login', login);
+router.post('/api/login', login);
 
-router.post('/logout', logout);
+router.post('/api/logout', logout);
 
-router.get('/profile',autRequierd, profile);
+router.get('/api/profile',autRequierd, profile);
 
 export default router;

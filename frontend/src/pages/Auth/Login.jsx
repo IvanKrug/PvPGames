@@ -1,42 +1,48 @@
 // src/Login.jsx
 import React, { useState } from 'react';
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleSubmit = (e) => {
+    const navigate = useNavigate()
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000/api/login', { email, password });
 
-        console.log('Email:', email);
-        console.log('Password:', password);
+            const userData = {
+                name: response.data.name,
+                email: response.data.email,
+                role: response.data.role
+            }
+            localStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('token', JSON.stringify(response.data.token));
+            const accesMsg = response.data.message
+            Swal.fire({
+                icon: "success",
+                title: "Bienvenido",
+                text: accesMsg,
+
+            });
+            navigate("/")
+        } catch (error) {
+            console.log(error)
+            const errorMsg = error.response.data.message
+
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: errorMsg,
+
+            });
+        }
+
+
     };
-
-    const numeros = [1, 2, 3, 4, 5]
-
-    const nombres = ["Carlos", "Ivan", "Alban"]
-
-    const juegos = [{
-        name: 'MH WORLD',
-        price: '19,99',
-        color: 'red',
-    },
-    {
-        name: 'MH WORLD',
-        price: '19,99'
-    },
-    {
-        name: 'MH WORLD',
-        price: '19,99'
-    }]
-
-    const newJuegos = {
-
-    }
-
-    const array = []
 
     return (
         <div className="flex  items-center justify-center min-h-screen bg-[url('./assets/background.jpg')] bg-cover bg-center">
@@ -69,14 +75,14 @@ function Login() {
 
                     </div>
                     <div>
-                        <Link to={'/'}>
-                            <button
-                                type="submit"
-                                className="font-semibold w-full py-2 px-4 text-white bg-pvp-verde rounded-md hover:bg-pvp-verde/60 transition-colors duration-300  focus:outline-none focus:ring focus:ring-indigo-100"
-                            >
-                                Inicia Sesión
-                            </button>
-                        </Link>
+
+                        <button
+                            type="submit"
+                            className="font-semibold w-full py-2 px-4 text-white bg-pvp-verde rounded-md hover:bg-pvp-verde/60 transition-colors duration-300  focus:outline-none focus:ring focus:ring-indigo-100"
+                        >
+                            Inicia Sesión
+                        </button>
+
                         <div className='flex items-center justify-between mt-4'>
                             <hr className='flex-grow border-t border-white' />
                             <span className='mx-2 text-white'>O</span>

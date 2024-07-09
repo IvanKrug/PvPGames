@@ -5,13 +5,13 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import LandingPage from './components/LandingPage'
-import ErrorPage from './components/ErrorPage.jsx'
-import { Layout } from './components/Layout.jsx'
-import Login from './components/Login.jsx';
-import Register from './components/Register.jsx';
-import ShoppingCart from './components/ShoppingCart.jsx';
-import AboutUs from './components/AboutUs.jsx';
+import LandingPage from './pages/Store/LandingPage.jsx'
+import ErrorPage from './layout/ErrorPage.jsx'
+import { Layout } from './layout/Layout.jsx'
+import Login from './pages/Auth/Login.jsx';
+import Register from './pages/Auth/Register.jsx';
+import ShoppingCart from './pages/Store/ShoppingCart.jsx';
+import AboutUs from './pages/AboutUs.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <AboutUs />,
+        element: <LandingPage />,
       },
       {
         path: "shop",
@@ -32,10 +32,7 @@ const router = createBrowserRouter([
         path: "us",
         element: <AboutUs />,
       },
-      {
-        path: "products",
-        element: <LandingPage />,
-      }
+
     ],
   },
   {
@@ -46,7 +43,7 @@ const router = createBrowserRouter([
     path: "register",
     element: <Register />,
   },
-  
+
 ]);
 
 

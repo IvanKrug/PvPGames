@@ -6,16 +6,21 @@ import { createAccessToken } from '../libs/jwt.js'
 
 export const register = async (req, res) => {
 
-    const { email, password, username } = req.body
-
+    const { email, password, username, name } = req.body
+    let role = req.body.role
     try {
 
+        if (!role) {
+            role = "user"
+        }
 
         const passwordHash = await bcryptjs.hash(password, 10)
         const newUser = new User({
             username,
             email,
             password: passwordHash,
+            role,
+            name
         })
 
         const userSaved = await newUser.save()
@@ -28,13 +33,15 @@ export const register = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        let errorMessage
         if (error.code === 11000) {
-            errorMessage = 'Ya existe una cuenta con ese correo'
+            res.status(400).json({
+                errorMessage: 'Ya existe una cuenta con ese correo'
+            });
         } else {
-            errorMessage = 'Ocurrio un error al crear la cuenta'
+            res.status(500).json({
+                errorMessage: 'Ocurrió un error al crear la cuenta'
+            });
         }
-        res.status(500).json({ errorMessage })
     }
 
 };
@@ -46,10 +53,10 @@ export const login = async (req, res) => {
 
 
         const userFound = await User.findOne({ email })
-        if (!userFound) return res.status(404).json({ message: "User not found" })
+        if (!userFound) return res.status(404).json({ message: "Usuario no encontrado" })
 
         const isMach = await bcryptjs.compare(password, userFound.password)
-        if (!isMach) return res.status(404).json({ message: "incorrect password" })
+        if (!isMach) return res.status(404).json({ message: "Contraseña incorrecta" })
 
 
 
@@ -58,13 +65,15 @@ export const login = async (req, res) => {
 
         res.cookie('token', token)
         res.json({
-            message: "User created successfully",
-        })
-        res.json({
+            message: "Inicio de sesion correcto ",
             id: userFound._id,
             username: userFound.username,
-            email: userFound.email
+            email: userFound.email,
+            name:userFound.name ,
+            role:userFound.role,
+            token
         })
+
 
     } catch (error) {
         res.status(500).json({ message: error.message })
