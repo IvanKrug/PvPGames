@@ -1,12 +1,48 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-
+import { AiFillDelete } from 'react-icons/ai';
 
 const ProductTable = () => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/product');
+            if (!response.ok) {
+                throw new Error('Error al obtener los productos');
+            }
+            const data = await response.json();
+            setProducts(data);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    const handleDeleteProduct = async (productId) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/product/${productId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Error al eliminar el producto');
+            }
+            const updatedProducts = products.filter(product => product._id !== productId);
+            setProducts(updatedProducts);
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
 
     const columns = [
+        {
+            name: 'Picture',
+            selector: row => row.picture,
+            cell: row => <img src={row.picture} alt={row.name} width={50} height={50} />,
+        },
         {
             name: 'Name',
             selector: row => row.name,
@@ -24,46 +60,33 @@ const ProductTable = () => {
             sortable: true,
         },
         {
-            name: 'Description',
-            selector: row => row.description,
-        },
-        {
             name: 'Platform',
             selector: row => row.platform,
             sortable: true,
         },
         {
-            name: 'Picture',
-            selector: row => row.picture,
-            cell: row => <img src={row.picture} alt={row.name} width={50} height={50} />,
-        },
-    ];
-
-    const data = [
-        {
-            _id: { "$oid": "668da8475bccca810aabbb5c" },
-            price: 59.99,
-            category: 'Acción RPG',
-            description: 'Explora un vasto mundo de fantasía creado por Hidetaka Miyazaki y George R. R. Martin.',
-            name: 'Elden Ring',
-            picture: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg',
-            platform: 'PS4,PS5,Xbox Series X|S ,PC',
-            createdAt: { "$date": "2024-07-09T21:14:47.472Z" },
-            updatedAt: { "$date": "2024-07-09T21:14:47.472Z" },
-            __v: 0
+            name: 'Actions',
+            cell: row => (
+                <button onClick={() => handleDeleteProduct(row._id)} className="btn-delete">
+                    <AiFillDelete />
+                </button>
+            ),
         },
     ];
 
     return (
         <>
-            <h1 className='text-lg'> Tabla de Productos </h1>
             <DataTable
                 columns={columns}
-                data={data}
+                data={products}
                 pagination
+                paginationPerPage={10} 
+                paginationRowsPerPageOptions={[10, 20, 30]} 
+                striped
+                highlightOnHover 
             />
         </>
-    )
-}
+    );
+};
 
-export default ProductTable
+export default ProductTable;
