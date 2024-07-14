@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import LandingPage from './components/LandingPage';
 import AboutUs from './components/AboutUs';
-
+import ProductForm from './pages/Auth/ProductForm';
 
 const App = () => {
   return (
@@ -12,7 +12,8 @@ const App = () => {
     <Register />,
     <LandingPage />,
     <ShoppingCart/>,
-    <AboutUs/>
+    <AboutUs/>,
+    <ProductForm/>
 
 
 

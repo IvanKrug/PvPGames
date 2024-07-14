@@ -12,6 +12,7 @@ import Login from './pages/Auth/Login.jsx';
 import Register from './pages/Auth/Register.jsx';
 import ShoppingCart from './pages/Store/ShoppingCart.jsx';
 import AboutUs from './pages/AboutUs.jsx';
+import ProductForm from './pages/Auth/ProductForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
     path: "register",
     element: <Register />,
   },
+  {
+    path: "new",
+    element: < ProductForm/>,
+  }
 
 ]);
 

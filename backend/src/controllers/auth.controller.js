@@ -69,8 +69,8 @@ export const login = async (req, res) => {
             id: userFound._id,
             username: userFound.username,
             email: userFound.email,
-            name:userFound.name ,
-            role:userFound.role,
+            name: userFound.name,
+            role: userFound.role,
             token
         })
 
@@ -97,3 +97,5 @@ export const profile = (req, res) => {
         email: userFound.email,
     });
 }
+
+
