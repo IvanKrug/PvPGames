@@ -21,6 +21,14 @@ function Login() {
             }
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('token', JSON.stringify(response.data.token));
+            console.log(response)
+            if(response.data.role === 'admin') {
+                navigate("/new");
+            }else if(
+                response.data.role === 'user'
+            ){
+                navigate("/")
+            }
             const accesMsg = response.data.message
             Swal.fire({
                 icon: "success",
@@ -28,7 +36,7 @@ function Login() {
                 text: accesMsg,
 
             });
-            navigate("/")
+         
         } catch (error) {
             console.log(error)
             const errorMsg = error.response.data.message

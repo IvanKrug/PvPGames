@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+
+
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showThanksMessage, setShowThanksMessage] = useState(false);
@@ -20,10 +22,9 @@ const ShoppingCart = () => {
   };
 
   const handleCheckout = () => {
-    // Aquí podrías implementar la lógica para procesar el pago
-    // En este ejemplo, simplemente mostramos el mensaje y limpiamos el carrito
+   
     setShowThanksMessage(true);
-    localStorage.removeItem('carrito'); // Borra el carrito del localStorage
+    localStorage.removeItem('carrito'); 
     setTimeout(() => {
       navigate('/')
     }, 3000);

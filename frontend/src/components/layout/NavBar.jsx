@@ -4,10 +4,14 @@ import logo from './../../assets/logo.png';
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
+
+
 const NavBar = () => {
 
+    const navigate = useNavigate()
     const [isLogin, setIsLogin] = useState(false);
     const [token, setToken] = useState("")
+
     const logOut = () => {
         localStorage.clear()
         setToken("")
@@ -18,10 +22,14 @@ const NavBar = () => {
             text: "Cierre de Sesion Exitoso ",
 
         });
+        navigate("/")
     }
+
+    
     const login = () => {
         navigate("/login")
     }
+
     useEffect(() => {
         setToken(localStorage.getItem('token'));
         if (token?.length > 1) {
