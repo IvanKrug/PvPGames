@@ -1,0 +1,22 @@
+name: CI/CD Deployment
+on:
+  push:
+    branches:
+      - main
+jobs:   
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Comienza el Despliegue de mi app"
+    - run: echo "El usuario ${{ github.actor }} está corriendo el CI/CD"
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '14'
+    - run: echo "Comienza a instalar las dependencias"
+    - name: Install dependencies
+      run: npm install
+    - name: Run tests
+      run: npm test
