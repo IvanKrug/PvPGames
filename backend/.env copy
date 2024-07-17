@@ -1,3 +1,0 @@
-MONGO_ATLAS_USERNAME = 'user_name'
-MONGO_ATLAS_PASSWORD = 'password'
-PORT = 'puerto'
